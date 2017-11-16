@@ -30,7 +30,7 @@ enum Expression {
     case variable(String) // e.g var abc
     case decimalNumber(Double) // e.g 10.0
     indirect case binaryOp(Expression,BinaryOperator,Expression) // e.g 5 + 2
-    indirect case functionCall(String, [String]) // Takes function name + parameters
+    indirect case functionCall(String, [Expression]) // Takes function name + parameters
     indirect case ternary(Expression, Expression, Expression) // all possible ternary ops
 }
 /*

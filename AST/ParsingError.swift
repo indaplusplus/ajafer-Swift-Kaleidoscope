@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ParsingError {
+enum ParsingError: Error {
     case UnexpectedToken(Token)
     case somethingFuckedUp
 }

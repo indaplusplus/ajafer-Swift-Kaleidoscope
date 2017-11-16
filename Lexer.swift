@@ -94,12 +94,13 @@ class Lexer {
         ]
         
         if let scalarToken = singleScalars[char] {
+            advanceIndex()
             return scalarToken
         }
         
         if char.isAlphanumeric {
             let compactedString = charsAsReadableValue()
-            // If transmuatble into number, we know it's a number string.
+            // If transmuatble into number, we know it's a number token.
             if let number = Double(compactedString) {
                 return Token.decimalNumber(number)
             }
@@ -109,8 +110,6 @@ class Lexer {
                 return Token.def
             case "extern":
                 return Token.extern
-            case "comma":
-                return Token.comma
             case "if":
                 return Token.´if´
             case "else":

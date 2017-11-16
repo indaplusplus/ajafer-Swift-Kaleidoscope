@@ -16,9 +16,29 @@ import Foundation
      This enum represents a token which covers all the possible cases
      which may occur, together with a value held by each case.
 */
-enum Token {
+enum Token: Equatable {
     case def, extern, comma, semicolon, ´if´, ´else´, then, leftParenthesis, rightParenthesis
     case identifier(String)
     case decimalNumber(Double)
     case ´operator´(BinaryOperator)
+    
+    // We need a way of comparing tokens for when we parse
+    static func ==(lhs: Token, rhs: Token) -> Bool {
+        switch (lhs, rhs) {
+            // Check Language keywords first. If both are same we know they're equal
+        case (.leftParenthesis, .leftParenthesis), (.rightParenthesis, .rightParenthesis), (.def, .def), (.extern, .extern), (.comma, .comma),
+             (.semicolon, .semicolon), (.´if´, .´if´), (.then, .then),
+             (.´else´, .´else´):
+            return true
+            // Then do identifiers, operators, numbers.
+        case let (.identifier(first), .identifier(second)):
+            return first == second
+        case let (.´operator´(first), .´operator´(second)):
+            return first == second
+        case let (.decimalNumber(first), .decimalNumber(second)):
+            return first == second
+        default:
+            return false
+        }
+    }
 }
